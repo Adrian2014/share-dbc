@@ -11,81 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807185211) do
+ActiveRecord::Schema.define(version: 20140808151906) do
 
-  create_table "comments", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "resource_id"
-    t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "comments", ["resource_id"], name: "index_comments_on_resource_id"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "learning_styles", force: true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "learning_styles_resources", force: true do |t|
-    t.integer "resources_id"
-    t.integer "learning_styles_id"
-  end
-
-  add_index "learning_styles_resources", ["resources_id"], name: "index_learning_styles_resources_on_resources_id"
 
   create_table "resources", force: true do |t|
-    t.integer  "creator_id"
     t.string   "title"
     t.string   "link"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "resources", ["creator_id"], name: "index_resources_on_creator_id"
-
-  create_table "subjects", force: true do |t|
-    t.string   "name"
+  create_table "subjects_resources", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "subjects_resources", id: false, force: true do |t|
-    t.integer  "subject_id"
-    t.integer  "resource_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "subjects_resources", ["resource_id"], name: "index_subjects_resources_on_resource_id"
-  add_index "subjects_resources", ["subject_id"], name: "index_subjects_resources_on_subject_id"
 
   create_table "users", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "cohort"
     t.string   "email"
+    t.string   "cohort"
     t.string   "username"
-    t.string   "role"
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "votes", force: true do |t|
-    t.integer  "voter_id"
-    t.integer  "resource_id"
-    t.integer  "learning_style_id"
-    t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "votes", ["resource_id"], name: "index_votes_on_resource_id"
-  add_index "votes", ["voter_id"], name: "index_votes_on_voter_id"
 
 end
